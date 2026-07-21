@@ -13,6 +13,15 @@ const limiter = createLimiter({
 
 app.set('trust proxy', true);
 
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message: 'Welcome to the Distributed Token-Bucket Rate Limiter API!',
+    status: 'Online',
+    testEndpoint: '/api/test'
+  });
+});
+
+
 // /api/test endpoint with the Redis-backed token bucket rate limiter
 app.get('/api/test', limiter, (req, res) => {
   const authMethod = req.headers['x-api-key'] ? 'API Key' : 'IP Address';
